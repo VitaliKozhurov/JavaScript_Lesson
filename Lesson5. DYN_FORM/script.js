@@ -29,75 +29,75 @@ const createForm =  function(arr){
    myForm.style.margin = 30+'px';
    myForm.setAttribute('action', 'https://fe.it-academy.by/TestForm.php'); // Установка атрибута тегу FORM
    myBody.insertBefore(myForm, myScript); // Добавление формы перед тегом SCRIPT
-   const key1 = 'label';
-   const key2 = 'kind';
-   const key3 = 'name';
-   const key4 = 'variants';
-   const key5 = 'text';
-   const key6 = 'value';
-   const key7 = 'caption';
-   for(let i=0; i<arr.length-1; i++){
+  
+   for(let i=0; i<arr.length; i++){
    const newDiv = document.createElement('div'); // Создаем DIV(блочный элемент), чтобы новые элементы создавались с новой строки
    myForm.appendChild(newDiv);
 
-   const newLabel = document.createElement('label'); // Создаем элемент LABEL
-   newLabel.innerHTML=arr[i][key1]; // Содержимое тега LABEL
-   newDiv.appendChild(newLabel); // Добавление тега LABEL в тег FORM
+   const arrEl = arr[i]; // Для удобства i-ый элемент массива присваеваем переменной
 
+   if('label' in arrEl){
+   const newLabel = document.createElement('label'); // Создаем элемент LABEL
+   newLabel.innerHTML=arrEl.label; // Содержимое тега LABEL
+   newDiv.appendChild(newLabel); // Добавление тега LABEL в тег FORM
+   }
    // Создание тега INPUT, для поля ввода текста
-   if (arr[i][key2] === 'longtext' || arr[i][key2] === 'shorttext'||arr[i][key2] === 'number'){
-      const newInput = document.createElement('input'); 
-      newInput.setAttribute(key3, arr[i][key3]);  // Добавляем атрибут NAME
+   if (arrEl.kind === 'longtext' || arrEl.kind === 'shorttext'||arrEl.kind === 'number'){
+      const newInput = document.createElement('input');
+      newInput.setAttribute('name', arrEl.name);  // Добавляем атрибут NAME
       newInput.setAttribute('type', 'text'); // Добавляем атрибут TYPE и значение TEXT
       newDiv.appendChild(newInput); // Добавляем элемент в DIV
     }
    // Создание тега SELECT
-    if (arr[i][key2] === 'combo'){
+    if (arrEl.kind === 'combo'){
       const newSelect = document.createElement('select'); 
-      newSelect.setAttribute(key3, arr[i][key3]); // Добавляем атрибут NAME
+      newSelect.setAttribute('name', arrEl.name); // Добавляем атрибут NAME
       newDiv.appendChild(newSelect); // Добавляем элемент в DIV
       // Создание пунктов списка, тега SELECT
-      for(j=0; j<arr[i][key4].length; j++){
+      for(j=0; j<arrEl.variants.length; j++){
       const newOption = document.createElement('option');
-      newOption.innerHTML=arr[i][key4][j][key5]; // Содержимое тега OPTION
-      newOption.setAttribute(key6, arr[i][key4][j][key6]); // Добавляем атрибут VALUE
+      newOption.innerHTML=arrEl.variants[j].text; // Содержимое тега OPTION
+      newOption.setAttribute('value', arrEl.variants[j].value); // Добавляем атрибут VALUE
       newSelect.appendChild(newOption);
       }
     }
     // Создание радиокнопок
-    if (arr[i][key2] === 'radio'){
-      for(k=0; k<arr[i][key4].length; k++){
+    if (arrEl.kind === 'radio'){
+      for(k=0; k<arrEl.variants.length; k++){
       const newRadio = document.createElement('input'); // Создаем тег INPUT
-      newRadio.setAttribute(key6, arr[i][key4][k][key6]); // Добавляем атрибут VALUE
+      newRadio.setAttribute('value', arrEl.variants[k].value); // Добавляем атрибут VALUE
       newRadio.setAttribute('type', 'radio'); // Добавляем атрибут TYPE = RADIO
       newDiv.appendChild(newRadio);
       const newSpan = document.createElement('span'); // Создаем тег SPAN
-      newSpan.innerHTML=arr[i][key4][k][key5]; // Содержимое тега SPAN
+      newSpan.innerHTML=arrEl.variants[k].text; // Содержимое тега SPAN
       newDiv.appendChild(newSpan)
       }
     }
     // Создание CHEKBOX
-    if (arr[i][key2] === 'check'){
+    if (arrEl.kind === 'check'){
       const newCheck = document.createElement('input'); // Создаем тег INPUT
       newCheck.setAttribute('type', 'checkbox'); // Добавляем атрибут TYPE = checkbox
-      newCheck.setAttribute(key3, arr[i][key3]); // Добавляем атрибут NAME
+      newCheck.setAttribute('name', arrEl.name); // Добавляем атрибут NAME
       newCheck.setAttribute('checked', ''); // Добавляем атрибут checked (чекбокс выбран)
       newDiv.appendChild(newCheck);
     }
     // Создание тега TEXTAREA
-    if (arr[i][key2] === 'memo'){
+    if (arrEl.kind === 'memo'){
       const newText = document.createElement('textarea');
-      newText.setAttribute(key3, arr[i][key3]); // Добавляем атрибут NAME
+      newText.setAttribute('name', arrEl.name); // Добавляем атрибут NAME
       const divText = document.createElement('div');
       newDiv.appendChild(divText);
       divText.appendChild(newText);
     }
-   }
-   // Создание кнопок подтверждения
+
+    if (arrEl.kind === 'submit'){
+      // Создание кнопок подтверждения
    const newSubmit = document.createElement('input');
-   newSubmit.setAttribute('type', arr[arr.length-1][key2]); // Добавляем атрибут TYPE = SUBMIT
-   newSubmit.setAttribute(key6, arr[arr.length-1][key7]); // Добавляем атрибут VALUE и его значение
+   newSubmit.setAttribute('type', arrEl.kind); // Добавляем атрибут TYPE = SUBMIT
+   newSubmit.setAttribute('value', arrEl.caption); // Добавляем атрибут VALUE и его значение
    myForm.appendChild(newSubmit)
+    }
+   }
 }
 
 const btn1 = document.getElementById('form1');
