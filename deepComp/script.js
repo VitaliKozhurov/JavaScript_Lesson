@@ -14,7 +14,7 @@ function deepComp (value1, value2){
    }
    
    // Записываем условие сравнения случае если аргументы являются массивами
-   if (value1 instanceof Array && value2 instanceof Array){
+   if (value1 instanceof Array){
    // Если длинны массивов не равны, то возвращаем FALSE
       if(value1.length !== value2.length){
          return false
@@ -28,9 +28,7 @@ function deepComp (value1, value2){
    return true
    }
    
-   // Записываем условие сравнения случае если аргументы являются объектами (или один из аргументов массив)
-   if (value1 instanceof Object && value2 instanceof Object){
-      // Проверка на колличество свойств в объектах
+   // Записываем условие сравнения случае если аргументы являются объектами
       if (Object.keys(value1).length !== Object.keys(value2).length){
          return false
       }
@@ -44,8 +42,8 @@ function deepComp (value1, value2){
             return false
       }
       }
+
       return true
-   }
    }
    
    function myTest(){
