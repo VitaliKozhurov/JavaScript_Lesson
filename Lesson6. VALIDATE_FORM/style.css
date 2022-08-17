@@ -1,0 +1,47 @@
+* body {
+   font-size: 20px;
+}
+
+.form {
+   display: flex;
+}
+
+.label {
+   display: block;
+   width: 220px;
+   margin-bottom: 5px;
+}
+
+.input {
+   width: 220px;
+   margin-bottom: 4px;
+}
+
+.radio {
+   width: 320px;
+}
+
+.checkbox_input {
+   margin-bottom: 0;
+   margin-top: 7px;
+   width: auto;
+}
+
+.lable_site {
+   display: block;
+}
+
+.text_descr {
+   width: 450px;
+   height: 100px;
+}
+
+.error {
+
+   outline: solid rgb(237, 34, 34) 1px;
+}
+
+.input-message-default {
+   margin-left: 20px;
+   color: red;
+}

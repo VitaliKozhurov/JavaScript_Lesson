@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="style.css">
+   <title>JS Validate Form</title>
+</head>
+
+<body>
+   <h1 class="form_title">Для внесения вашего сайта в каталог, заполните форму: </h1>
+   <form action="https://fe.it-academy.by/TestForm.php" id="myForm">
+      <div class="form" class="form">
+         <div class="label">
+            <label for="" class="label">Разработчики:</label>
+            <label for="" class="label">Название сайта:</label>
+            <label for="" class="label">URL сайта:</label>
+            <label for="" class="label">Дата запуска сайта:</label>
+            <label for="" class="label">Посетителей в сутки:</label>
+            <label for="" class="label">E-mail для связи:</label>
+            <label for="" class="label">Рубрика каталога:</label>
+            <label for="">Размещение:</label>
+            <label for="" class="label">Разрешить отзывы:</label>
+         </div>
+         <div class="form_box">
+            <div><input type="text" name="author" class="input input_text"><span class="input-message-default"></span>
+            </div>
+            <div><input type="text" name="site_title" class="input input_text"><span
+                  class="input-message-default"></span></div>
+            <div><input type="text" name="site_address" class="input input_text"><span
+                  class="input-message-default"></span></div>
+            <div><input type="date" name="start_date" class="input input_text"><span
+                  class="input-message-default"></span></div>
+            <div><input type="text" name="persons" class="input input_text"><span class="input-message-default"></span>
+            </div>
+            <div><input type="text" name="mail" class="input input_text"><span class="input-message-default"></span>
+            </div>
+            <select name="rubric" id="" class="input">
+               <option value="1" selected>бытовая техника</option>
+               <option value="2">здоровье</option>
+               <option value="3">домашний уют</option>
+            </select><span class="input-message-default"></span>
+
+            <div id="div_radio">
+               <input type="radio" value="1" name="placement">
+               <span>бесплатное</span>
+               <input type="radio" value="2" name="placement">
+               <span>платное</span>
+               <input type="radio" value="3" name="placement">
+               <span id="vip">VIP</span><span class="input-message-default"></span>
+            </div>
+
+
+            <div><input type="checkbox" name="comments" id="" class="input checkbox_input"><span
+                  class="input-message-default"></span></div>
+         </div>
+      </div>
+      <div class="title_site">
+         <label for="" class="lable_site">Описание сайта:</label>
+         <textarea name="article" id="" cols="30" rows="10" class="text_descr"></textarea><span
+            class="input-message-default"></span>
+      </div>
+      <div class="form_box">
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <input type="submit" value="Опубликовать">
+      </div>
+   </form>
+   <script src="script.js"></script>
+</body>
+
+</html>
