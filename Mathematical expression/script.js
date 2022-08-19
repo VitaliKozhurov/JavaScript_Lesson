@@ -24,6 +24,10 @@ function result() {
       if (symbal.includes(sortStr[i])) {
          newArr.push(sortStr[i])
       }
+      // Условие если выражение начинается с отрицательного числа
+      else if (i === 0 && sortStr[i] < 0) {
+         newArr.push(sortStr[i])
+      }
       // Если элемент отрицательный и он находится после скобки, то в массив symbal добавляем 0, знак "-" и модуль элемента
       else if (sortStr[i - 1] === '(' && sortStr[i] < 0) {
          newArr.push(0)
