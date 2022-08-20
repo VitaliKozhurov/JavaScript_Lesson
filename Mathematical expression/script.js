@@ -25,7 +25,7 @@ function result() {
          newArr.push(sortStr[i])
       }
       // Условие если выражение начинается с отрицательного числа
-      else if (i === 0 && sortStr[i] < 0) {
+      else if ((i === 0 || sortStr[i - 1] === '*' || sortStr[i - 1] === '/') && sortStr[i] < 0) {
          newArr.push(sortStr[i])
       }
       // Если элемент отрицательный и он находится после скобки, то в массив symbal добавляем 0, знак "-" и модуль элемента
