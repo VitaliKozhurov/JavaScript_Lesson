@@ -5,8 +5,8 @@ function result() {
    if (str === '') {
       return document.getElementById('show_result').innerHTML = 'Ошибка, введите математическое выражение в поле ввода'
    }
-   // Разбиваем принятую от пользователя строку  на массив (целые числа, дробные, отрицательные)
-   const sortStr = str.match(/-?\d+(?:\.\d+)?|[+*\/-]|[\(\)]/g);
+   // Разбиваем принятую от пользователя строку  на массив (целые числа, дробные, операторы)
+   const sortStr = str.match(/\d+(?:\.\d+)?|[+*\/-]|[\(\)]/g);
    // Создаем объект, где ключами будут являться операторы, а значение свойств это приоритет операторов
    const symbalObj = {
       '(': 1,
@@ -15,32 +15,32 @@ function result() {
       '*': 3,
       '/': 3,
    }
+
    // Создаем массив для проверок
    const symbal = ['+', '-', '*', '/', '(', ')'];
-   // Создаем массив который будем обрабатывать, будем добавлять символы по правилам описанным в цикле
+
+   // Массив для конвертации в ОПЗ
    const newArr = []
    for (i = 0; i < sortStr.length; i++) {
-      // Если очередной элемент есть в проверочном массиве symbal, то добавляем его в массив
-      if (symbal.includes(sortStr[i])) {
-         newArr.push(sortStr[i])
-      }
-      // Условие если выражение начинается с отрицательного числа
-      else if ((i === 0 || sortStr[i - 1] === '*' || sortStr[i - 1] === '/') && sortStr[i] < 0) {
-         newArr.push(sortStr[i])
-      }
-      // Если элемент отрицательный и он находится после скобки, то в массив symbal добавляем 0, знак "-" и модуль элемента
-      else if (sortStr[i - 1] === '(' && sortStr[i] < 0) {
-         newArr.push(0)
-         newArr.push('-')
-         newArr.push(Math.abs(sortStr[i]))
-      }
-      // Если элемент отрицательный, то в массив symbal добавляем знак "-" и модуль элемента
-      else if (sortStr[i] < 0) {
-         newArr.push('-');
-         newArr.push(Math.abs(sortStr[i]))
-      }
-      // Иначе добавляем элемент в массив
-      else newArr.push(sortStr[i])
+      if (sortStr[i] === '-') {
+         if (i === 0 || sortStr[i - 1] === '(') {
+            newArr.push(0);
+            newArr.push(sortStr[i])
+         } else if (sortStr[i - 1] === '*') {
+            newArr.push(-1)
+            newArr.push('*')
+         } else if (sortStr[i - 1] === '/') {
+            newArr.push(-1)
+            newArr.push('/')
+         } else if (sortStr[i - 1] === '-') {
+            newArr.push('*')
+            newArr.push(-1)
+         } else if (sortStr[i - 1] === '+') {
+            newArr.push('*')
+            newArr.push(-1)
+         }
+         else newArr.push(sortStr[i])
+      } else newArr.push(sortStr[i])
    }
    // Описываем функцию, которая конвертирует массив в обратную польскую запись
    function calculate(expr) {
