@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset=UTF-8>
+   <title>drag&amp;drop</title>
+</head>
+
+<body style='min-height: 100vh'>
+   <img src='http://fe.it-academy.by/Sites/0000007/sax.jpg'>
+   <img src='http://fe.it-academy.by/Sites/0000007/Yin_and_Yang.png' width=100>
+   <img src='http://fe.it-academy.by/Sites/0000007/Man-and-woman.png' width=150>
+   <img src='http://fe.it-academy.by/Sites/0000007/No_smoking.png' style='padding-left: 50px'>
+
+   <script>
+      // После того как браузер загрузил HTML и внешние ресурсы (картинки, стили и т.д.) вешаем обработчик событий
+      window.addEventListener('load', documentReady, false)
+
+      function documentReady() {
+         // Получаем всю коллекцию изображений
+         const imageColl = document.querySelectorAll('img')
+         // Переменная, которая будет определять z-index картинок
+         let posIndex = 1;
+         // Проходим циклом по каждой картинке и вешаем на её обработчик, цикл проходим в обратной последовательности, чтобы корректно абсолютно  спозиционировать элементы
+         for (let i = imageColl.length - 1; i >= 0; i--) {
+            // Находим саму картинку
+            let elem = imageColl[i];
+            // Определяем ее местоположение
+            let positionX = elem.offsetLeft;
+            let positionY = elem.offsetTop;
+
+            // Вешаем обработчики событий
+            elem.addEventListener('mousedown', imageStart);
+            document.addEventListener('mousemove', imageMove);
+            elem.addEventListener('mouseup', imageEnd);
+            elem.addEventListener('mouseenter', showCursor)
+            // Позиционируем картинки
+            elem.style.left = positionX + 'px';
+            elem.style.top = positionY + 'px';
+            elem.style.position = 'absolute';
+
+            let mouseDown = false;
+            let difX // Переменная которая будет показывать разницу между точкой касания курсора на картинке  по оси Х при перетаскивании
+            let difY  // Переменная которая будет показывать разницу между точкой касания курсора на картинке  по оси Y при перетаскивании
+
+            function showCursor(eo) {
+               eo.preventDefault()
+               elem.style.cursor = 'pointer';
+            }
+
+            // Обработчик касания мышью к картинке
+            function imageStart(eo) {
+               eo.preventDefault()
+               posIndex++;
+               mouseDown = true;
+               difX = eo.pageX - elem.offsetLeft;
+               difY = eo.pageY - elem.offsetTop;
+               elem.style.zIndex = posIndex;
+               elem.style.cursor = 'grabbing'
+            }
+
+            // Обработчик движения мышью отслеживается на документ, из-за быстрого движения указатель может спрыгнуть с картинки и оказаться где-нибудь в середине документа, что приводит  к "скачкам картинок"
+            function imageMove(eo) {
+               if (mouseDown) {
+                  eo.preventDefault()
+                  elem.style.left = (eo.pageX - difX) + 'px';
+                  elem.style.top = (eo.pageY - difY) + 'px';
+               }
+            }
+
+            // При отпускании мыши прекращаем движение мыши
+            function imageEnd(eo) {
+               eo.preventDefault();
+               mouseDown = false;
+               elem.style.cursor = 'pointer'
+            }
+
+         }
+
+      }
+
+   </script>
+
+</body>
+
+</html>
