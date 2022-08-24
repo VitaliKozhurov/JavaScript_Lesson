@@ -31,8 +31,6 @@
 
             // Вешаем обработчики событий
             elem.addEventListener('mousedown', imageStart);
-            document.addEventListener('mousemove', imageMove);
-            elem.addEventListener('mouseup', imageEnd);
             elem.addEventListener('mouseenter', showCursor)
             // Позиционируем картинки
             elem.style.left = positionX + 'px';
@@ -46,7 +44,6 @@
             function showCursor(eo) {
                eo.preventDefault()
                elem.style.cursor = 'pointer';
-
             }
 
             // Обработчик касания мышью к картинке
@@ -59,6 +56,8 @@
                difY = eo.pageY - elem.offsetTop;
                elem.style.zIndex = posIndex;
                elem.style.cursor = 'grabbing'
+               document.addEventListener('mousemove', imageMove);
+               elem.addEventListener('mouseup', imageEnd);
             }
 
             // Обработчик движения мышью отслеживается на документ, из-за быстрого движения указатель может спрыгнуть с картинки и оказаться где-нибудь в середине документа, что приводит  к "скачкам картинок"
