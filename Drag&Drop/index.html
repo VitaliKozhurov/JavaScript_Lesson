@@ -31,49 +31,47 @@
 
             // Вешаем обработчики событий
             elem.addEventListener('mousedown', imageStart);
-            elem.addEventListener('mouseenter', showCursor)
+            elem.addEventListener('mouseenter', showCursor);
             // Позиционируем картинки
             elem.style.left = positionX + 'px';
             elem.style.top = positionY + 'px';
             elem.style.position = 'sticky';
 
-            let mouseDown = false;
             let difX // Переменная которая будет показывать разницу между точкой касания курсора на картинке  по оси Х при перетаскивании
             let difY  // Переменная которая будет показывать разницу между точкой касания курсора на картинке  по оси Y при перетаскивании
 
             function showCursor(eo) {
-               eo.preventDefault()
+               eo.preventDefault();
                elem.style.cursor = 'pointer';
             }
 
             // Обработчик касания мышью к картинке
             function imageStart(eo) {
-               eo.preventDefault()
+               eo.preventDefault();
                posIndex++;
                mouseDown = true;
                elem.style.position = 'absolute';
                difX = eo.pageX - elem.offsetLeft;
                difY = eo.pageY - elem.offsetTop;
                elem.style.zIndex = posIndex;
-               elem.style.cursor = 'grabbing'
+               elem.style.cursor = 'grabbing';
                document.addEventListener('mousemove', imageMove);
                elem.addEventListener('mouseup', imageEnd);
             }
 
             // Обработчик движения мышью отслеживается на документ, из-за быстрого движения указатель может спрыгнуть с картинки и оказаться где-нибудь в середине документа, что приводит  к "скачкам картинок"
             function imageMove(eo) {
-               if (mouseDown) {
-                  eo.preventDefault()
-                  elem.style.left = (eo.pageX - difX) + 'px';
-                  elem.style.top = (eo.pageY - difY) + 'px';
-               }
+               eo.preventDefault();
+               elem.style.left = (eo.pageX - difX) + 'px';
+               elem.style.top = (eo.pageY - difY) + 'px';
             }
 
-            // При отпускании мыши прекращаем движение мыши
+            // При отпускании мыши прекращаем движение мыши и удаляем ненужные обработчики событий
             function imageEnd(eo) {
                eo.preventDefault();
-               mouseDown = false;
-               elem.style.cursor = 'pointer'
+               elem.style.cursor = 'pointer';
+               document.removeEventListener('mousemove', imageMove);
+               elem.removeEventListener('mouseup', imageEnd);
             }
 
          }
