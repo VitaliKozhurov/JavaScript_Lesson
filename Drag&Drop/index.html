@@ -37,7 +37,7 @@
             // Позиционируем картинки
             elem.style.left = positionX + 'px';
             elem.style.top = positionY + 'px';
-            elem.style.position = 'absolute';
+            elem.style.position = 'sticky';
 
             let mouseDown = false;
             let difX // Переменная которая будет показывать разницу между точкой касания курсора на картинке  по оси Х при перетаскивании
@@ -46,6 +46,7 @@
             function showCursor(eo) {
                eo.preventDefault()
                elem.style.cursor = 'pointer';
+
             }
 
             // Обработчик касания мышью к картинке
@@ -53,6 +54,7 @@
                eo.preventDefault()
                posIndex++;
                mouseDown = true;
+               elem.style.position = 'absolute';
                difX = eo.pageX - elem.offsetLeft;
                difY = eo.pageY - elem.offsetTop;
                elem.style.zIndex = posIndex;
