@@ -125,7 +125,7 @@ function createClock() {
    arrows[2].style.height = clockSize.value / secondArrowHeight + 'px';
    arrows[2].style.width = clockSize.value / secondArrowWidth + 'px';
    arrows[2].style.left = (clockSize.value / 2 - arrows[2].offsetWidth / 2) + 'px';
-
+   setInterval(updateTime, 1000);
    function updateTime() {
       const currTime = new Date();
       const hours = currTime.getHours();
@@ -139,12 +139,13 @@ function createClock() {
       arrows[0].style.transform = `rotateZ(${hh + (mm / 12)}deg)`; // Устанавливаем стилевое свойство rotate для часовой стрелки (Изменение одного часа равно 30 градусам, но чтобы изменение происходило плавно прибавляем значение в градусах относительно текущей минуты)
       arrows[1].style.transform = `rotateZ(${mm}deg)`;  // Rotate для минутной стрелки
       arrows[2].style.transform = `rotateZ(${ss}deg)`;  // Rotate для секундной стрелки
-      setInterval(updateTime, 1000);
+
    }
-   updateTime() // Сразу вызываем функцию, для отображаения текущего времени
+   updateTime() // Сразу вызываем функцию, для отображаения текущего времени, чтобы не было задержек
 
    // форматирует дату-время в формате чч:мм:сс
    function formatDateTime(hours, minutes, seconds) {
+      console.log(str0l(hours, 2) + ':' + str0l(minutes, 2) + ':' + str0l(seconds, 2))
       return str0l(hours, 2) + ':' + str0l(minutes, 2) + ':' + str0l(seconds, 2);
    }
 
