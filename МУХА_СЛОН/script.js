@@ -1,4 +1,6 @@
-const searchWordString = (firstWord, lastWord) => {
+const searchWordString = () => {
+   let firstWord = document.getElementById('firstWord').value.toUpperCase();
+   let lastWord = document.getElementById('lastWord').value.toUpperCase();
    const wordList = ["ЛУЖА", "МУЗА", "ЛИРА", "МЕХА", "ЛИГА", "ТАРА", "ЛИПА", "ТУРА", "ПАРК", "ЛОЖЬ", "ЛУПА", "ПЛОТ", "МУРА", "ПАУК", "ПАУТ", "ПЛУТ", "ЛОЖА", "СЛОТ", "ПАРА"];
    // Функция, которая будет находить очередные слова из словаря которые будут отличаться на одну букву от исходного
    const findNeighbors = (word, wordSet) => {
@@ -19,7 +21,7 @@ const searchWordString = (firstWord, lastWord) => {
    }
 
    // Добавляем последнее слово в массив слов, чтобы в конце можно было проверить будет ли являться соседнее слово искомым
-   wordList.push(lastWord)
+   wordList.push(lastWord);
    // Преобразовываем массив в коллекцию, в дальнейшем с ней будет проще работать
    const wordSet = new Set(wordList);
    // Создаем массив, который будет являться очередью, первый символ здесь будет первым словом
@@ -41,15 +43,14 @@ const searchWordString = (firstWord, lastWord) => {
          // Есди соседнее слово равно последнему, то значит мы дошли до самого короткого решения
          if (neighbors[i] === lastWord) {
             resultStr.add(neighbors[i])
-            return Array.from(resultStr).join('-');
+            return document.getElementById('result').innerText = Array.from(resultStr).join('-');
          }
          // Если соседнее слово не равно  последнему, то добавляем его в очередь для дальнейших проверок и удаляем из исходной коллекции, чтобы при новом поиске соседей не добавлять это слово еще раз.
          queue.push(neighbors[i])
          wordSet.delete(neighbors[i])
       }
    }
-   return 'Цепочку слов составить нельзя'
+   return document.getElementById('result').innerText = 'Цепочку слов составить нельзя'
 }
-
-console.log(searchWordString('ЛИСА', 'ЛОСЬ'))
-console.log(searchWordString('МУХА', 'СЛОН'))
+const btn = document.getElementById('showRes');
+btn.addEventListener('click', searchWordString);
