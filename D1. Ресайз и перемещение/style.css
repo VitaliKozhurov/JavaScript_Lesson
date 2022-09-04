@@ -1,0 +1,60 @@
+.elem {
+   background-color: cadetblue;
+   border: solid 2px black;
+   height: 600px;
+   width: 600px;
+   position: absolute;
+   left: 200px;
+   top: 50px;
+}
+
+.resize {
+   width: 20px;
+   height: 20px;
+   background-color: blue;
+   position: absolute;
+}
+
+.mid_top {
+   left: 50%;
+   top: -10px;
+   transform: translate(-50%, 0);
+}
+
+.mid_bottom {
+   left: 50%;
+   bottom: -10px;
+   transform: translate(-50%, 0);
+}
+
+.mid_left {
+   left: -10px;
+   top: 50%;
+   transform: translate(0, -50%);
+}
+
+.mid_right {
+   right: -10px;
+   top: 50%;
+   transform: translate(0, -50%);
+}
+
+.left_top {
+   left: -10px;
+   top: -10px;
+}
+
+.left_bottom {
+   left: -10px;
+   bottom: -10px;
+}
+
+.right_top {
+   right: -10px;
+   top: -10px;
+}
+
+.right_bottom {
+   right: -10px;
+   bottom: -10px;
+}
