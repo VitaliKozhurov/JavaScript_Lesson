@@ -1,11 +1,16 @@
 .elem {
-   background-color: cadetblue;
    border: solid 2px black;
    height: 600px;
    width: 600px;
    position: absolute;
    left: 200px;
    top: 50px;
+   box-sizing: border-box;
+}
+
+.img {
+   width: 100%;
+   height: 100%;
 }
 
 .resize {
