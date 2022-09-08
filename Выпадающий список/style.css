@@ -1,0 +1,67 @@
+body {
+   font-size: 20px;
+}
+
+a,
+a:visited {
+   text-decoration: none;
+}
+
+a:hover {
+   text-decoration: none;
+}
+
+
+ul li {
+   list-style: none;
+}
+
+.ul {
+   display: flex;
+   width: auto;
+}
+
+.hidden {
+   display: none;
+}
+
+.item {
+   padding: 10px 15px;
+   background-color: rgb(246, 206, 5);
+   border: solid 1px black;
+   width: 150px;
+}
+
+.submenu {
+   position: relative;
+}
+
+.submenu::after {
+   content: "⇓";
+   padding-left: 10px;
+}
+
+.submenu_right {
+   position: relative;
+}
+
+.submenu_right::after {
+   content: "⇒";
+   padding-left: 10px;
+}
+
+.visible {
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   top: 45px;
+   left: -30px
+}
+
+.visible_right {
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   left: 141px;
+   top: 10px;
+}
