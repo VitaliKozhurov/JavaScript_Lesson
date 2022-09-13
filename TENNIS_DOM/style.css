@@ -1,0 +1,34 @@
+#game_field {
+   background: yellow;
+   border: solid 1px black;
+   margin: 0 auto;
+   position: relative;
+   box-sizing: border-box;
+}
+
+#info {
+   margin: 50px auto 0;
+   position: relative;
+}
+
+button {
+   font-size: 24px;
+   position: absolute;
+   left: 0;
+}
+
+#left_racket {
+   background: green;
+   position: absolute;
+}
+
+#right_racket {
+   background: blue;
+   position: absolute;
+}
+
+#ball {
+   background: red;
+   border-radius: 50%;
+   position: absolute;
+}
