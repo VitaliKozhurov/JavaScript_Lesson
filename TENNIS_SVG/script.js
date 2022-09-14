@@ -79,6 +79,8 @@ const rightScoreInfo = {
    text: 0,
    setPos: createText
 }
+leftScoreInfo.setPos(leftScore, svgInfo)
+rightScoreInfo.setPos(rightScore, svgInfo)
 // Описываем функцию для установки параметров прямоугольных SVG элементов
 function createSvgRect(elem, parent) {
    elem.setAttribute("x", this.posX);
@@ -235,49 +237,49 @@ function tick() {
       if (keyEvent.rightBot && rightRacketInfo.posY + racketHeight < fieldHeight) {
          rightRacketInfo.posY += racketSpeed
       }
-   }
-   // Если игра началась запускаем мячик
-   if (startGame) {
+      // Если игра началась запускаем мячик
       ballInfo.centerX += ballSpeedX;
       ballInfo.centerY -= ballSpeedY;
+      // Столкновение с нижней границей
+      if (ballInfo.centerY + ballRadius > fieldHeight) {
+         ballSpeedY = -ballSpeedY;
+         ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
+      }
+      // Столкновение с верхней границей
+      if (ballInfo.centerY - ballRadius < 0) {
+         ballSpeedY = -ballSpeedY;
+         ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
+      }
+      // Столкновение с правой границей
+      if (ballInfo.centerX + ballRadius > fieldWidth) {
+         ballInfo.centerX = fieldWidth - ballRadius;
+         leftScoreInfo.text++;
+         leftScoreInfo.setPos(leftScore, svgInfo)
+         startGame = false;
+      }
+      // Столкновение с левой границей
+      if (ballInfo.centerX - ballRadius < 0) {
+         ballInfo.centerX = ballRadius;
+         rightScoreInfo.text++;
+         rightScoreInfo.setPos(rightScore, svgInfo)
+         startGame = false;
+      }
+      // Столкновение с левой ракеткой
+      if (ballInfo.centerX - ballRadius <= racketWidth && ballInfo.centerY >= leftRacketInfo.posY && ballInfo.centerY <= leftRacketInfo.posY + racketHeight) {
+         ballInfo.centerX = racketWidth + ballRadius;
+         ballSpeedX = -ballSpeedX;
+         ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
+      }
+      // Столкновение с правой ракеткой
+      if (ballInfo.centerX + ballRadius >= fieldWidth - racketWidth && ballInfo.centerY >= rightRacketInfo.posY && ballInfo.centerY <= rightRacketInfo.posY + racketHeight) {
+         ballSpeedX = -ballSpeedX;
+         ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
+      }
+
    }
-   // Столкновение с нижней границей
-   if (ballInfo.centerY + ballRadius > fieldHeight) {
-      ballSpeedY = -ballSpeedY;
-      ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
-   }
-   // Столкновение с верхней границей
-   if (ballInfo.centerY - ballRadius < 0) {
-      ballSpeedY = -ballSpeedY;
-      ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
-   }
-   // Столкновение с правой границей
-   if (ballInfo.centerX + ballRadius > fieldWidth) {
-      ballInfo.centerX = fieldWidth - ballRadius;
-      leftScoreInfo.text++;
-      startGame = false;
-   }
-   // Столкновение с левой границей
-   if (ballInfo.centerX - ballRadius < 0) {
-      ballInfo.centerX = ballRadius;
-      rightScoreInfo.text++;
-      startGame = false;
-   }
-   // Столкновение с левой ракеткой
-   if (ballInfo.centerX - ballRadius <= racketWidth && ballInfo.centerY >= leftRacketInfo.posY && ballInfo.centerY <= leftRacketInfo.posY + racketHeight) {
-      ballInfo.centerX = racketWidth + ballRadius;
-      ballSpeedX = -ballSpeedX;
-      ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
-   }
-   // Столкновение с правой ракеткой
-   if (ballInfo.centerX + ballRadius >= fieldWidth - racketWidth && ballInfo.centerY >= rightRacketInfo.posY && ballInfo.centerY <= rightRacketInfo.posY + racketHeight) {
-      ballSpeedX = -ballSpeedX;
-      ballSpeedX > 0 ? ballSpeedX = ballSpeedX + ballAccel : ballSpeedX = ballSpeedX - ballAccel
-   }
+
    leftRacketInfo.setRect(leftRacket, svgPlay)
    rightRacketInfo.setRect(rightRacket, svgPlay)
    ballInfo.setBall();
-   leftScoreInfo.setPos(leftScore, svgInfo)
-   rightScoreInfo.setPos(rightScore, svgInfo)
    requestAnimationFrame(tick)
 }
