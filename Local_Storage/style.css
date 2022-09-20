@@ -1,0 +1,19 @@
+body {
+   background-color: azure;
+   display: flex;
+   justify-content: space-between;
+}
+
+.about {
+   width: 500px;
+   border: solid 3px #000;
+   border-radius: 5px;
+   margin: 50px auto;
+}
+
+.btn {
+   display: block;
+   margin: 20px auto;
+   width: 300px;
+   padding: 20px;
+}
